@@ -48,6 +48,8 @@ export interface UserType {
   Events: null;
   image: string;
   platform: string;
+  salary: number;
+  department: string;
 }
 
 export interface EventFormData {

@@ -4,7 +4,8 @@ import { EyeIcon, EyeOffIcon, UserPlus } from "lucide-react";
 import { useAuthStore } from "../store/auth.store";
 import { useState } from "react";
 import CustomFetch from "../config/db";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
+import useFormatRupiah from "../hooks/FormatNumber";
 
 type Props = {
   role?: string;
@@ -16,16 +17,20 @@ const Register = ({ role, title, subtitle }: Props) => {
   const navigate = useNavigate();
 
   const { setTokenData } = useAuthStore();
+  const Type = import.meta.env.VITE_TYPE_URI;
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    platform: "",
+    platform: Type,
+    department: "",
+    salary: 0,
   });
 
   const [error, setError] = useState("");
   const [showPass, setShowPass] = useState(false);
+  const formattedSalary = useFormatRupiah(formData.salary);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -35,9 +40,11 @@ const Register = ({ role, title, subtitle }: Props) => {
         email: formData.email,
         password: formData.password,
         platform: formData.platform,
+        department: formData.department,
+        salary: formData.salary,
       });
       console.log(response);
-      if (response.status == 200) {
+      if (response.status == 200 || response.status == 201) {
         setTokenData(response.data.user, response.data.token);
         navigate("/register");
         toast.success(response.data.message);
@@ -57,6 +64,15 @@ const Register = ({ role, title, subtitle }: Props) => {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "");
+
+    setFormData((prev) => ({
+      ...prev,
+      salary: Number(value) || 0,
     }));
   };
   return (
@@ -100,9 +116,9 @@ const Register = ({ role, title, subtitle }: Props) => {
               </label>
               <input
                 type="text"
-                value={formData.platform}
+                value={formData.department}
                 onChange={handleChange}
-                name="platform"
+                name="department"
                 required
                 placeholder="john@example.com"
                 className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
@@ -144,6 +160,20 @@ const Register = ({ role, title, subtitle }: Props) => {
                   {showPass ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
                 </button>
               </div>
+            </div>
+            <div className=" ">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
+                Salary Employee
+              </label>
+              <input
+                type="text"
+                value={formData.salary ? formattedSalary : ""}
+                onChange={handleSalaryChange}
+                name="salary"
+                required
+                placeholder="Rp 1.000.000"
+                className="w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+              />
             </div>
             <button
               type="submit"

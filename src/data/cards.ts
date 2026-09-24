@@ -42,8 +42,8 @@ export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
     icon: MailIcon,
   },
   {
-    value: data.role,
-    title: "Role",
+    value: data.department,
+    title: "Department",
     subtitle:
       "Manage Employee, Departments, Payroll, and system configurations",
     icon: ShieldIcon,
@@ -63,7 +63,7 @@ export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
     icon: FileIcon,
   },
   {
-    value: useFormatRupiah(data.id),
+    value: useFormatRupiah(data.salary),
     title: "Latest Payslip",
     subtitle:
       "Manage Employee, Departments, Payroll, and system configurations",
@@ -71,15 +71,16 @@ export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
   },
 ];
 
-export const CardsAdmin = (data: UserType): CardsAdminType[] => [
+export const CardsAdmin = (data: UserType, users: number, tags: number): CardsAdminType[] => [
   {
-    value: data.id,
+    // saya ingin menambahkan users.length di value ini
+    value: users,
     label: "Total Employees",
     description: "Active Workforce",
     icon: User2Icon,
   },
   {
-    value: data.id,
+    value: tags,
     label: "Departments",
     description: "Organization Units",
     icon: Building2Icon,
