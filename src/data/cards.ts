@@ -1,0 +1,99 @@
+import {
+  Building2Icon,
+  CalendarIcon,
+  DollarSignIcon,
+  FileIcon,
+  FileTextIcon,
+  MailIcon,
+  ShieldIcon,
+  User2Icon,
+  type LucideIcon,
+} from "lucide-react";
+import type { UserType } from "../types/type";
+import useFormatRupiah from "../hooks/FormatNumber";
+
+export type CardsEmployeeType = {
+  value: string | number;
+  title: string;
+  subtitle: string;
+  icon: LucideIcon;
+};
+
+export type CardsAdminType = {
+  value: string | number;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
+  {
+    value: data.name,
+    title: "Name",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: User2Icon,
+  },
+  {
+    value: data.email,
+    title: "Email",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: MailIcon,
+  },
+  {
+    value: data.role,
+    title: "Role",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: ShieldIcon,
+  },
+  {
+    value: data.id,
+    title: "Days Present",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: CalendarIcon,
+  },
+  {
+    value: data.id,
+    title: "Pending Leaves",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: FileIcon,
+  },
+  {
+    value: useFormatRupiah(data.id),
+    title: "Latest Payslip",
+    subtitle:
+      "Manage Employee, Departments, Payroll, and system configurations",
+    icon: DollarSignIcon,
+  },
+];
+
+export const CardsAdmin = (data: UserType): CardsAdminType[] => [
+  {
+    value: data.id,
+    label: "Total Employees",
+    description: "Active Workforce",
+    icon: User2Icon,
+  },
+  {
+    value: data.id,
+    label: "Departments",
+    description: "Organization Units",
+    icon: Building2Icon,
+  },
+  {
+    value: data.id,
+    label: "Today's Attendance",
+    description: "Checked in Today",
+    icon: CalendarIcon,
+  },
+  {
+    value: data.id,
+    label: "Pending Leaves",
+    description: "Awaiting Approval",
+    icon: FileTextIcon,
+  },
+];

@@ -8,7 +8,7 @@ import CustomFetch from "../config/db";
 import { toast } from "react-toastify";
 
 type Props = {
-  role: string;
+  role?: string;
   title?: string;
   subtitle?: string;
 };
@@ -44,7 +44,7 @@ const LoginForm = ({ role, title, subtitle }: Props) => {
     } catch (error: any) {
       setError(error.response.data.error);
       if (error.response.status === 401) {
-        toast.error(error.response.data.error);
+        toast.error("Anda bukan" + role);
       }
     }
   };
