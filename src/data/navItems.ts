@@ -6,6 +6,7 @@ import {
   LayoutGridIcon,
   SettingsIcon,
   UserIcon,
+  UserPlus,
 } from "lucide-react";
 
 export type NavItemsType = {
@@ -22,4 +23,7 @@ export const navItems = (role: string): NavItemsType[] => [
   { name: "Leave", href: "/leave", icon: FileTextIcon },
   { name: "Payslips", href: "/payslips", icon: DollarSignIcon },
   { name: "Settings", href: "/settings", icon: SettingsIcon },
+  ...(role === "admin"
+    ? [{ name: "Register", href: "/register", icon: UserPlus }]
+    : []),
 ];

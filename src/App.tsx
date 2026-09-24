@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router";
 import PublicRoute from "./guard/PublicRoute";
 import LoginLanding from "./pages/auth/LoginLanding";
-import RegisterLanding from "./pages/auth/RegisterLanding";
 import ProtectedRoute from "./guard/ProtectedRoute";
 import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
@@ -11,6 +10,7 @@ import Payslips from "./pages/Payslips";
 import Settings from "./pages/Settings";
 import Layout from "./pages/Layout";
 import LoginForm from "./components/LoginForm";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         {/* Public */}
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<LoginLanding />} />
-          <Route path="/register" element={<RegisterLanding />} />
+          {/* <Route path="/register" element={<RegisterLanding />} /> */}
 
           <Route
             path="/login/admin"
@@ -53,6 +53,7 @@ function App() {
             <Route path="/leave" element={<Leave />} />
             <Route path="/payslips" element={<Payslips />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/register" element={<Register />} />
           </Route>
 
           <Route path="/print/payslips/:id" element={<Payslips />} />
