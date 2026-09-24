@@ -2,14 +2,22 @@
 import { Link, useLocation } from "react-router";
 import { useAuthStore } from "../store/auth.store";
 import { useEffect, useState } from "react";
-import { ChevronRightIcon, MenuIcon, UserIcon, XIcon } from "lucide-react";
+import {
+  ChevronRightIcon,
+  LogOutIcon,
+  MenuIcon,
+  UserIcon,
+  XIcon,
+} from "lucide-react";
 import { navItems } from "../data/navItems";
+import LogoutModal from "./LogoutModal";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
   const { user } = useAuthStore();
   const [userName, setUserName] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const items = navItems(user?.role ?? "");
 
   useEffect(() => {
@@ -102,11 +110,22 @@ const Sidebar = () => {
       </div>
 
       {/* Logout */}
+      <div className="p-3 border-t border-white/6">
+        <button
+          onClick={() => setLogoutOpen(true)}
+          className="w-full flex items-center gap-3 p-3 rounded-md text-[13px] font-medium text-slate-400 hover:text-rose-400 hover:bg-rose-500/8 transition-all duration-150"
+        >
+          <LogOutIcon className="w-[17px] h-[17px]" />
+          <span>Log Out</span>
+        </button>
+      </div>
     </>
   );
 
   return (
     <>
+      {logoutOpen && <LogoutModal setLogoutOpen={setLogoutOpen} />}
+
       {/* Mobile Hamburger Button */}
       <button
         onClick={() => setMobileOpen(true)}
