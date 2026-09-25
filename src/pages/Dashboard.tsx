@@ -1,34 +1,33 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../store/auth.store";
-import type { UserType } from "../types/type";
 import Loading from "../components/Loading";
 import AdminDashboard from "../components/AdminDashboard";
 import EmployeeDashboard from "../components/EmployeeDashboard";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const Dashboard = () => {
-  const { user } = useAuthStore();
-  const [data, setData] = useState<UserType | null>(null);
+  const { currentUser } = useCurrentUser();
   const [loading, setLoading] = useState(true);
+  console.log(currentUser);
 
   useEffect(() => {
-    setData(user);
     setTimeout(() => {
-      setLoading(false);
+      if (currentUser) {
+        setLoading(false);
+      }
     }, 1000);
-  }, []);
+  }, [currentUser]);
 
   if (loading) return <Loading />;
-  if (!data)
+  if (!currentUser)
     return (
       <p className="text-center text-slate-500">Failed to load dashboard</p>
     );
-  if (user?.role === "admin") {
-    return <AdminDashboard {...data} />;
+  if (currentUser?.role === "admin") {
+    return <AdminDashboard {...currentUser} />;
   } else {
-    return <EmployeeDashboard {...data} />;
+    return <EmployeeDashboard {...currentUser} />;
   }
-  return <div>Dashboard</div>;
 };
 
 export default Dashboard;

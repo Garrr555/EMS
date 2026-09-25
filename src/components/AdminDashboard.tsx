@@ -4,13 +4,13 @@ import { useAuthStore } from "../store/auth.store";
 import type { UserType } from "../types/type";
 import { ArrowRightIcon } from "lucide-react";
 import useUsers from "../hooks/useUsers";
-import useTags from "../hooks/useTags";
+import useDivisi from "../hooks/useDivisi";
 
 const AdminDashboard = (data: UserType) => {
   const { users } = useUsers();
-  const { tags } = useTags();
+  const { divisis } = useDivisi();
   const { user } = useAuthStore();
-  const cards = CardsAdmin(data, users.length, tags.length);
+  const cards = CardsAdmin(data, users.length, divisis.length);
 
   return (
     <div className="animate-fade-in">

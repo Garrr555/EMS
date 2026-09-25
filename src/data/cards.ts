@@ -42,7 +42,7 @@ export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
     icon: MailIcon,
   },
   {
-    value: data.department,
+    value: data?.divisi?.divisi ?? "gk ada",
     title: "Department",
     subtitle:
       "Manage Employee, Departments, Payroll, and system configurations",
@@ -71,7 +71,7 @@ export const CardsEmployee = (data: UserType): CardsEmployeeType[] => [
   },
 ];
 
-export const CardsAdmin = (data: UserType, users: number, tags: number): CardsAdminType[] => [
+export const CardsAdmin = (data: UserType, users: number, department: number): CardsAdminType[] => [
   {
     // saya ingin menambahkan users.length di value ini
     value: users,
@@ -80,7 +80,7 @@ export const CardsAdmin = (data: UserType, users: number, tags: number): CardsAd
     icon: User2Icon,
   },
   {
-    value: tags,
+    value: department,
     label: "Departments",
     description: "Organization Units",
     icon: Building2Icon,

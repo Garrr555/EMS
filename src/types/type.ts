@@ -50,6 +50,19 @@ export interface UserType {
   platform: string;
   salary: number;
   department: string;
+
+  divisiId: number | null;
+  divisi: DivisiType | null;
+}
+
+export interface DivisiType {
+  ID: number;
+  id: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: null | string;
+
+  divisi: string;
 }
 
 export interface EventFormData {
